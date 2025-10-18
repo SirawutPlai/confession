@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>แบบสอบถามเล็ก ๆ 💬</title>
+<style>
+  body {
+    font-family: "Sarabun", sans-serif;
+    background-color: #fff8f9;
+    color: #333;
+    text-align: center;
+    padding: 40px 20px;
+    transition: background 1s ease;
+  }
+
+  .container {
+    max-width: 450px;
+    margin: auto;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 2px 15px rgba(255, 150, 150, 0.2);
+    padding: 30px;
+  }
+
+  h1 {
+    color: #ff4f70;
+    margin-bottom: 10px;
+  }
+
+  p {
+    color: #555;
+    margin-bottom: 25px;
+  }
+
+  input[type="text"], input[type="file"] {
+    padding: 10px 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    width: 230px;
+    text-align: center;
+    transition: 0.2s;
+  }
+
+  input:focus {
+    border-color: #ff8099;
+    outline: none;
+    box-shadow: 0 0 4px #ffccd5;
+  }
+
+  button {
+    background: #ff8099;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background: #ff99aa;
+  }
+
+  #result {
+    margin-top: 40px;
+    font-size: 1.5em;
+    color: #ff4f70;
+    display: none;
+    white-space: pre-line;
+    transition: all 1s ease;
+  }
+
+  #finalImage {
+    display: none;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    margin: 25px auto 15px;
+    object-fit: cover;
+    box-shadow: 0 0 20px rgba(255, 120, 150, 0.4);
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+
+  small {
+    color: #999;
+    display: block;
+    margin-top: 25px;
+  }
+
+  footer {
+    margin-top: 25px;
+    color: #aaa;
+    font-size: 14px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>แบบสอบถามสั้น ๆ 💬</h1>
+    <p>ตอบนิดเดียวเอง ไม่เก็บข้อมูลอะไรเลยนะ 😳</p>
+
+    <input id="realName" type="text" placeholder="ชื่อจริงของคุณ"><br>
+    <input id="nickName" type="text" placeholder="ชื่อเล่นของคุณ"><br>
+    <input id="photo" type="file" accept="image/*"><br>
+
+    <button onclick="showResult()">ส่งคำตอบ</button>
+
+    <small>📸 ใส่รูปตัวเองก็ได้นะ (ไม่จำเป็น)</small>
+
+    <div id="result"></div>
+    <img id="finalImage" alt="รูปสุดท้าย">
+  </div>
+
+  <footer>© เว็บทำเล่น ๆ ไม่มีการเก็บข้อมูลที่กรอกใดๆ </footer>
+
+<script>
+let imageData = "";
+
+document.getElementById('photo').addEventListener('change', event => {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = e => imageData = e.target.result;
+    reader.readAsDataURL(file);
+  }
+});
+
+function showResult() {
+  const realName = document.getElementById('realName').value.trim() || "เธอ";
+  const nickName = document.getElementById('nickName').value.trim() || "เธอ";
+  const result = document.getElementById('result');
+  const finalImage = document.getElementById('finalImage');
+
+  document.querySelector("h1").style.display = "none";
+  document.querySelector("p").style.display = "none";
+  document.querySelectorAll("input, button, small").forEach(el => el.style.display = "none");
+
+  document.body.style.background = "#000";
+  document.body.style.color = "#ffb6c1";
+
+  result.style.display = "block";
+  result.innerText = "กำลังประมวลผลข้อมูล...";
+
+  setTimeout(() => result.innerText = "วิเคราะห์เสร็จแล้ว 😳", 1800);
+  setTimeout(() => {
+    result.innerText = `เราชอบคนชื่อ “${realName}” หรือไม่ก็ “${nickName}” มากที่สุดเลย 💘`;
+
+    if (imageData) {
+      finalImage.src = imageData;
+      finalImage.style.display = "block";
+      setTimeout(() => finalImage.style.opacity = 1, 300);
+    }
+  }, 3500);
+}
+</script>
+
+</body>
+</html>
