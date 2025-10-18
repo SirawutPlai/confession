@@ -148,10 +148,8 @@
 </style>
 </head>
 <body>
-
   <div class="container">
     <h1>แบบสอบถามเล็ก ๆ 💕</h1>
-
     <input id="realName" type="text" placeholder="ชื่อจริงของคุณ"><br>
     <input id="nickName" type="text" placeholder="ชื่อเล่นของคุณ"><br>
     <input id="photo" type="file" accept="image/*"><br>
@@ -177,29 +175,24 @@ document.getElementById('photo').addEventListener('change', event => {
     reader.readAsDataURL(file);
   }
 });
-
 function showResult() {
   const realName = document.getElementById('realName').value.trim() || "เธอ";
   const nickName = document.getElementById('nickName').value.trim() || "เธอ";
   const result = document.getElementById('result');
   const finalImage = document.getElementById('finalImage');
 
-  // ซ่อนฟอร์ม
   document.querySelector("h1").style.display = "none";
   document.querySelectorAll("input, button, small").forEach(el => el.style.display = "none");
 
-  // พื้นหลังใหม่ไล่สีชมพูพีช เหมาะกับมือถือ
   document.body.style.background = "linear-gradient(135deg, #ffd6e0, #ffb6c1, #ff9aa2)";
   document.body.style.color = "#6b1a3a";
 
   result.style.display = "block";
   result.innerText = "กำลังประมวลผลข้อมูล...";
 
-  // สร้างหัวใจลอย
   for (let i = 0; i < 25; i++) {
     setTimeout(() => createHeart(), i * 200);
   }
-
   setTimeout(() => result.innerText = "วิเคราะห์เสร็จแล้ว 😳", 1800);
   setTimeout(() => {
     result.innerText = `เราชอบคนชื่อ “${realName}” หรือคนที่ชื่อ “${nickName}” มากที่สุดเลย 💘`;
