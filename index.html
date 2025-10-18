@@ -28,11 +28,6 @@
 
   h1 {
     color: #ff4f70;
-    margin-bottom: 10px;
-  }
-
-  p {
-    color: #555;
     margin-bottom: 25px;
   }
 
@@ -128,8 +123,7 @@
 <body>
 
   <div class="container">
-    <h1>แบบสอบถามสั้น ๆ  💬 h1>
-    <p>ตอบนิดเดียวเอง ไม่เก็บข้อมูลอะไรเลยนะ 😳</p>
+    <h1>แบบสอบถามเล็ก ๆ 💕</h1>
 
     <input id="realName" type="text" placeholder="ชื่อจริงของคุณ"><br>
     <input id="nickName" type="text" placeholder="ชื่อเล่นของคุณ"><br>
@@ -165,7 +159,6 @@ function showResult() {
 
   // ซ่อนฟอร์ม
   document.querySelector("h1").style.display = "none";
-  document.querySelector("p").style.display = "none";
   document.querySelectorAll("input, button, small").forEach(el => el.style.display = "none");
 
   // พื้นหลังไล่สีชมพูตอนเฉลย
