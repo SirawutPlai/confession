@@ -11,6 +11,7 @@
     color: #333;
     text-align: center;
     padding: 40px 20px;
+    overflow-x: hidden;
     transition: background 1s ease;
   }
 
@@ -21,6 +22,8 @@
     border-radius: 20px;
     box-shadow: 0 2px 15px rgba(255, 150, 150, 0.2);
     padding: 30px;
+    position: relative;
+    z-index: 2;
   }
 
   h1 {
@@ -68,11 +71,12 @@
 
   #result {
     margin-top: 40px;
-    font-size: 1.5em;
-    color: #ff4f70;
+    font-size: 1.6em;
+    color: #fff;
     display: none;
     white-space: pre-line;
     transition: all 1s ease;
+    animation: fadeIn 1.5s ease forwards;
   }
 
   #finalImage {
@@ -82,7 +86,7 @@
     border-radius: 50%;
     margin: 25px auto 15px;
     object-fit: cover;
-    box-shadow: 0 0 20px rgba(255, 120, 150, 0.4);
+    box-shadow: 0 0 20px rgba(255, 120, 150, 0.6);
     opacity: 0;
     transition: opacity 1.5s ease;
   }
@@ -98,12 +102,33 @@
     color: #aaa;
     font-size: 14px;
   }
+
+  /* เอฟเฟกต์หัวใจ */
+  .heart {
+    position: fixed;
+    bottom: -10px;
+    color: #ffb6c1;
+    font-size: 20px;
+    animation: floatUp 5s linear forwards;
+    opacity: 0.8;
+    z-index: 1;
+  }
+
+  @keyframes floatUp {
+    0% {transform: translateY(0) scale(1);}
+    100% {transform: translateY(-100vh) scale(1.4); opacity: 0;}
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.9);}
+    to {opacity: 1; transform: scale(1);}
+  }
 </style>
 </head>
 <body>
 
   <div class="container">
-    <h1>แบบสอบถามสั้น ๆ 💬</h1>
+    <h1>แบบสอบถามสั้น ๆ 💕</h1>
     <p>ตอบนิดเดียวเอง ไม่เก็บข้อมูลอะไรเลยนะ 😳</p>
 
     <input id="realName" type="text" placeholder="ชื่อจริงของคุณ"><br>
@@ -118,7 +143,7 @@
     <img id="finalImage" alt="รูปสุดท้าย">
   </div>
 
-  <footer>© เว็บทำเล่น ๆ ไม่มีการเก็บข้อมูลที่กรอกใดๆ </footer>
+  <footer>© เว็บทำเล่น ๆ ไม่มีการเก็บข้อมูลที่กรอกใดๆ 💌</footer>
 
 <script>
 let imageData = "";
@@ -138,15 +163,22 @@ function showResult() {
   const result = document.getElementById('result');
   const finalImage = document.getElementById('finalImage');
 
+  // ซ่อนฟอร์ม
   document.querySelector("h1").style.display = "none";
   document.querySelector("p").style.display = "none";
   document.querySelectorAll("input, button, small").forEach(el => el.style.display = "none");
 
-  document.body.style.background = "#000";
-  document.body.style.color = "#ffb6c1";
+  // พื้นหลังไล่สีชมพูตอนเฉลย
+  document.body.style.background = "linear-gradient(135deg, #ffb6c1, #ff85a2, #ff9a9e)";
+  document.body.style.color = "#fff";
 
   result.style.display = "block";
   result.innerText = "กำลังประมวลผลข้อมูล...";
+
+  // สร้างหัวใจลอย
+  for (let i = 0; i < 25; i++) {
+    setTimeout(() => createHeart(), i * 200);
+  }
 
   setTimeout(() => result.innerText = "วิเคราะห์เสร็จแล้ว 😳", 1800);
   setTimeout(() => {
@@ -155,9 +187,20 @@ function showResult() {
     if (imageData) {
       finalImage.src = imageData;
       finalImage.style.display = "block";
-      setTimeout(() => finalImage.style.opacity = 1, 300);
+      setTimeout(() => finalImage.style.opacity = 1, 400);
     }
   }, 3500);
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.textContent = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = Math.random() * 20 + 10 + "px";
+  heart.style.animationDuration = 3 + Math.random() * 3 + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
 }
 </script>
 
